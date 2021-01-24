@@ -29,6 +29,7 @@ Usuario
     nome Text
     deriving Show
 Post
+    titulo Text
     conteudo Text
     editorId EditorId
     deriving Show
