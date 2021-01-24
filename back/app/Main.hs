@@ -15,5 +15,4 @@ main::IO()
 main = runStdoutLoggingT $ withPostgresqlPool connStr 10 $ \pool -> liftIO $ do
        flip runSqlPersistMPool pool $ do
               runMigration migrateAll
-       static@(Static settings) <- static "static"
-       warp 8080 (App pool static)
+       warp 8080 (App pool)

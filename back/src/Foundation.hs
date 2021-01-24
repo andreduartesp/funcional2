@@ -1,3 +1,4 @@
+{-# LANGUAGE DataKinds #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TemplateHaskell   #-}
 {-# LANGUAGE TypeFamilies      #-}
@@ -19,9 +20,6 @@ import Yesod.Core
 import Yesod
 import Data.Text
 import Database.Persist.Postgresql
-import Yesod.Static
-
-staticFiles "static"
 
 share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persistLowerCase|
 Editor
@@ -41,8 +39,8 @@ Comentario
     deriving Show
 Curtidos
     postId PostId
-    userId UserId
-    UniqueCurtidos postId userId
+    usuarioId UsuarioId
+    UniqueCurtidos postId usuarioId
 |]
 
 
@@ -50,7 +48,7 @@ Curtidos
 
 
 
-data App = App{connPool :: ConnectionPool, getStatic :: Static}
+data App = App{connPool :: ConnectionPool}
 
 mkYesodData "App" $(parseRoutesFile "routes.yesodroutes")
 
