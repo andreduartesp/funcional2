@@ -9,7 +9,7 @@ import Database.Persist.Postgresql
 import Control.Monad.Logger (runStdoutLoggingT)
 import Control.Monad.IO.Class (liftIO)
 
-connStr = "dbname=functional host=localhost user=murilo password=home8721 port=5432"
+connStr = "dbname=funcional host=localhost user=myuser password=mypass port=5432"
 
 main::IO()
 main = runStdoutLoggingT $ withPostgresqlPool connStr 10 $ \pool -> liftIO $ do
