@@ -9,7 +9,7 @@ const appLogoSpin = keyframes`
     transform: rotate(360deg);
   }
 `
- 
+
 
 const AppStyled = styled.div`
   text-align: center;
@@ -40,7 +40,7 @@ const Link = styled.a`
   color: #61dafb;
 `
 
-function App() {
+const App = () => {
   return (
     <AppStyled>
       <Header>
