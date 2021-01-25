@@ -57,7 +57,7 @@ const Container = styled.div`
 
 const Post = () => {
   const { id } = useParams()
-  const [editMode, setEditMode] = useState(false)
+  const [editMode, setEditMode] = useState(true)
   return (
     <Container>
       {(editMode ?
