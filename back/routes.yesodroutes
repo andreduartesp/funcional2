@@ -1,2 +1,2 @@
-/              HomeR GET
-/posts/#PostId    PostR GET
+/ HomeR GET
+/post/#PostId PostR GET POST PUT

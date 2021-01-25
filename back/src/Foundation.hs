@@ -46,16 +46,6 @@ Curtidos
     UniqueCurtidos postId usuarioId
 |]
 
--- instance ToJSON Post where
---   toJSON Post {..} = object
---     [ "titulo" .= titulo
---     , "conteudo" .= conteudo
---     ]
-
-
-
-
-
 data App = App{connPool :: ConnectionPool}
 
 mkYesodData "App" $(parseRoutesFile "routes.yesodroutes")
