@@ -42,5 +42,5 @@ putPostR postId = do
 getPostsR :: Handler Value
 getPostsR = do
     posts <- runDB $ selectList [] [Asc PostTitulo]
-    liftIO $ print posts
+    -- test <- mapM (get404 . entityVal) posts
     return $ object ["results" .= True]
