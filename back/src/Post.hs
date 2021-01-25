@@ -6,15 +6,8 @@
 
 module Post where
 
-import Data.Text
-import Yesod.Persist
 import Foundation
-import Yesod.Core
 import Yesod
-import Data.Aeson
-import Yesod.Core.Json
-
-newtype PostData = PostData (Post)
 
 instance ToJSON Post where
     toJSON (Post titulo conteudo autorId) = object ["titulo" .= titulo, "conteudo" .= conteudo, "autorId" .= autorId]
@@ -33,12 +26,17 @@ getPostR postId = do
 
 postPostR :: PostId -> Handler Value
 postPostR postId = do
-    post <- requireJsonBody :: Handler Post
-    -- postId2 <- insert post
+    post <- requireInsecureJsonBody :: Handler Post
+    -- postId <- insert post
     return $ object ["id" .= postId]
 
 putPostR :: PostId -> Handler Value
 putPostR postId = do
-    post <- requireJsonBody :: Handler Post
+    post <- requireInsecureJsonBody :: Handler Post
     -- Yesod.replace postId $ post
     returnJson post
+
+getPostsR :: Handler Value
+getPostsR = do
+    -- selectList [ComentarioPostId ==. postId] []
+    return $ object ["teste" .= True]

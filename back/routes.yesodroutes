@@ -1,2 +1,6 @@
 / HomeR GET
 /post/#PostId PostR GET POST PUT
+/posts PostsR GET
+/comentarios/#PostId ComentariosR GET
+/login LoginR POST
+/editor/#EditorId EditorR GET POST PUT
