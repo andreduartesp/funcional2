@@ -19,7 +19,8 @@ ReactDOM.render(
         <Route path="/post/" exact={true} component={Post} />
         <Route path="/editor/:id" exact={true} component={Editor} />
         <Route path="/editor/" exact={true} component={Editor} />
-        <Route path="/usuarios" exact={true} component={Usuarios} />
+        <Route path="/cadastrar" exact={true} component={Usuarios} />
+        <Route path="/perfil/:id" exact={true} component={Usuarios} />
       </Switch>
     </BrowserRouter>
   </React.StrictMode>,

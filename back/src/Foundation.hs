@@ -29,6 +29,8 @@ Editor
     deriving Show
 Usuario
     nome Text
+    usuario Text
+    senha Text
     deriving Show
 Post
     titulo Text

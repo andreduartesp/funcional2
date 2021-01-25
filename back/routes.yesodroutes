@@ -5,5 +5,8 @@
 /comentarios/#PostId ComentariosR GET
 /comentario ComentarioR POST
 /login LoginR POST
+/cadastrar CadastrarR POST
+/atualizar/#UsuarioId AtualizarR POST
+/usuario/#UsuarioId UsuarioR GET
 /editor/#EditorId EditorR GET PUT OPTIONS
 /editor AddEditorR POST OPTIONS
