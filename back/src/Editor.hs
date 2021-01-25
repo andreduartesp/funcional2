@@ -8,6 +8,7 @@ module Editor where
 
 import Foundation
 import Yesod
+import Data.Text
 
 instance ToJSON Editor where
     toJSON (Editor nome) = object ["nome" .= nome]
@@ -38,3 +39,16 @@ getEditoresR :: Handler Value
 getEditoresR = do
     runDB $ selectList [] [Asc EditorId]
     return $ object ["teste" .= True]
+
+
+optionsEditorR :: EditorId -> Handler RepPlain
+optionsEditorR editorId = do
+    addHeader "Access-Control-Allow-Origin" "*"
+    addHeader "Access-Control-Allow-Methods" "PUT, OPTIONS, POST, GET"
+    return $ RepPlain $ toContent ("" :: Text)
+
+optionsAddEditorR :: Handler RepPlain
+optionsAddEditorR = do
+    addHeader "Access-Control-Allow-Origin" "*"
+    addHeader "Access-Control-Allow-Methods" "PUT, OPTIONS, POST, GET"
+    return $ RepPlain $ toContent ("" :: Text)
