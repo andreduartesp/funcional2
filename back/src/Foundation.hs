@@ -1,8 +1,10 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TemplateHaskell   #-}
+{-# LANGUAGE RecordWildCards   #-}
 {-# LANGUAGE TypeFamilies      #-}
 {-# LANGUAGE ViewPatterns      #-}
+{-# LANGUAGE DeriveAnyClass #-}
 
 {-# LANGUAGE OverloadedStrings, TypeFamilies, QuasiQuotes,
              TemplateHaskell, GADTs, FlexibleInstances,
@@ -44,6 +46,11 @@ Curtidos
     UniqueCurtidos postId usuarioId
 |]
 
+-- instance ToJSON Post where
+--   toJSON Post {..} = object
+--     [ "titulo" .= titulo
+--     , "conteudo" .= conteudo
+--     ]
 
 
 
