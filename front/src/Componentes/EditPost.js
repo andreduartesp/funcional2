@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import styled from 'styled-components'
+import { useHistory } from 'react-router-dom'
 
 const InputWrapper = styled.div`
 
@@ -38,20 +39,32 @@ const SubmitWrapper = styled.div`
 `
 
 const EditPost = ({ post }) => {
-  console.log(post)
   const [conteudo, setConteudo] = useState(post.conteudo)
   const [titulo, setTiulo] = useState(post.titulo)
+  const history = useHistory()
 
-  const handleSubmit = (ev) => {
+  const handleSubmit = async(ev) => {
     ev.preventDefault()
-    fetch(`${process.env.REACT_APP_BACK}/post/${post.id}`, {
-      method: 'PUT',
-      body: JSON.stringify({
-        conteudo,
-        titulo,
-        editorId: 1,
-      })
-    }).then(result => result.json())
+    if (post.id) {
+      fetch(`${process.env.REACT_APP_BACK}/post/${post.id}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          conteudo,
+          titulo,
+          editorId: 1,
+        })
+      }).then(result => result.json())
+    } else {
+      const newId = await fetch(`${process.env.REACT_APP_BACK}/post`, {
+        method: 'POST',
+        body: JSON.stringify({
+          conteudo,
+          titulo,
+          editorId: 1,
+        })
+      }).then(result => result.json())
+      history.push(`/post/${newId.id}`)
+    }
   }
 
   return (

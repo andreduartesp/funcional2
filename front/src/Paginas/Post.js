@@ -49,16 +49,17 @@ const Post = () => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(async() => {
-    const post = await fetch(`${process.env.REACT_APP_BACK}/post/${id}`).then(response => response.json())
-    setPost({ ...post, id })
+    if (id) {
+      const post = await fetch(`${process.env.REACT_APP_BACK}/post/${id}`).then(response => response.json())
+      setPost({ ...post, id })
+    }
     setIsLoading(false)
-  }, [])
+  }, [id])
 
   if (isLoading) {
     return <div></div>
   }
 
-  console.log(post)
   return (
     <Container>
       {(editMode ?

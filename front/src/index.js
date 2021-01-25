@@ -15,6 +15,7 @@ ReactDOM.render(
       <Switch>
         <Route path="/" exact={true} component={ListaPosts} />
         <Route path="/post/:id" exact={true} component={Post} />
+        <Route path="/post/" exact={true} component={Post} />
         <Route path="/usuarios" exact={true} component={Usuarios} />
       </Switch>
     </BrowserRouter>
