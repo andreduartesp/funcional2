@@ -5,7 +5,7 @@ const ReadPost = ({ post, comentarios }) => {
   return (
     <>
       <PostComponent {...post} />
-      <span>Comentarios:</span>
+      <h3>Comentarios:</h3>
       {comentarios.map((comentario) => (
         <ComentarioComponent {...comentario} />
       ))}

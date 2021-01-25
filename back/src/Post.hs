@@ -15,7 +15,7 @@ import Yesod
 import Data.Aeson
 import Yesod.Core.Json
 
--- data Pessoa = Pessoa 
+-- data Pessoa = Pessoa
 
 -- getPostR :: Handler TypedContent
 -- getPostR = selectRep $ do
@@ -33,20 +33,13 @@ import Yesod.Core.Json
 
 data PostData = PostData (Post)
 
-instance ToJSON PostData where
-  toJSON (PostData (postEntity)) =
-    let
-      post = entityVal postEntity
-    in
-    object
-      [ "titulo" .= postTitulo post
-      , "conteudo" .= postConteudo post
-      ]
+instance ToJSON Post where
+    toJSON (Post name age teste) = object ["name" .= name, "age" .= age, "teste" .= teste]
 
 getPostR :: PostId -> Handler Value
 getPostR postId = do
     post <- runDB $ get404 postId
-    let post' = toJSON $ PostData post
+    let post' = toJSON post
     return $ object [ "posts" .= post' ]
     -- defaultLayout $ do
     --     setTitle "Cadastro Pessoas"
