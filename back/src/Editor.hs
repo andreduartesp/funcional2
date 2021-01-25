@@ -22,10 +22,10 @@ getEditorR editorId = do
     editor <- runDB $ get404 editorId
     returnJson editor
 
-postEditorR :: EditorId -> Handler Value
-postEditorR editorId = do
+postAddEditorR :: Handler Value
+postAddEditorR = do
     editor <- requireInsecureJsonBody :: Handler Editor
-    -- editorId <- insert editor
+    editorId <- runDB $ insert editor
     return $ object ["id" .= editorId]
 
 putEditorR :: EditorId -> Handler Value

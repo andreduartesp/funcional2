@@ -27,7 +27,7 @@ getPostR postId = do
 postPostR :: PostId -> Handler Value
 postPostR postId = do
     post <- requireInsecureJsonBody :: Handler Post
-    postId <- insert post
+    -- postId <- insert post
     return $ object ["id" .= postId]
 
 putPostR :: PostId -> Handler Value
