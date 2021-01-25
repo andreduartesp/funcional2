@@ -11,5 +11,5 @@ import Yesod
 
 getComentariosR :: PostId -> Handler Value
 getComentariosR postId = do
-    -- selectList [ComentarioPostId ==. postId] []
+    runDB $ selectList [ComentarioPostId ==. postId] []
     return $ object ["teste" .= True]

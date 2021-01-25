@@ -31,10 +31,10 @@ postAddEditorR = do
 putEditorR :: EditorId -> Handler Value
 putEditorR editorId = do
     editor <- requireInsecureJsonBody :: Handler Editor
-    -- Yesod.replace editorId $ editor
+    runDB $ Yesod.replace editorId $ editor
     returnJson editor
 
 getEditoresR :: Handler Value
 getEditoresR = do
-    -- selectList [ComentarioeditorId ==. editorId] []
+    runDB $ selectList [] [Asc EditorId]
     return $ object ["teste" .= True]
