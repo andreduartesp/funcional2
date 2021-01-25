@@ -27,8 +27,8 @@ getPostR postId = do
     post <- runDB $ get404 postId
     returnJson post
 
-postPostsR :: Handler Value
-postPostsR = do
+postAddPostR :: Handler Value
+postAddPostR = do
     post <- requireInsecureJsonBody :: Handler Post
     postId <- runDB $ insert post
     return $ object ["id" .= postId]
@@ -36,7 +36,7 @@ postPostsR = do
 putPostR :: PostId -> Handler Value
 putPostR postId = do
     post <- requireInsecureJsonBody :: Handler Post
-    -- Yesod.replace postId $ post
+    runDB $ Yesod.replace postId $ post
     returnJson post
 
 getPostsR :: Handler Value
