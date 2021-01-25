@@ -49,7 +49,7 @@ const Post = () => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(async() => {
-    const post = await fetch(`http://localhost:8080/posts/${id}`).then(response => response.json())
+    const post = await fetch(`http://localhost:8080/post/${id}`).then(response => response.json())
     setPost(post)
     setIsLoading(false)
   }, [])
