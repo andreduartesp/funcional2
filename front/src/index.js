@@ -4,6 +4,7 @@ import './index.css'
 import ListaPosts from './Paginas/ListaPosts'
 import Post from './Paginas/Post'
 import Usuarios from './Paginas/Usuarios'
+import Editor from './Paginas/Editor'
 import Header from './Componentes/Header'
 import reportWebVitals from './reportWebVitals'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
@@ -16,6 +17,8 @@ ReactDOM.render(
         <Route path="/" exact={true} component={ListaPosts} />
         <Route path="/post/:id" exact={true} component={Post} />
         <Route path="/post/" exact={true} component={Post} />
+        <Route path="/editor/:id" exact={true} component={Editor} />
+        <Route path="/editor/" exact={true} component={Editor} />
         <Route path="/usuarios" exact={true} component={Usuarios} />
       </Switch>
     </BrowserRouter>
