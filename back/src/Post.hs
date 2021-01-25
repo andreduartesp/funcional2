@@ -44,3 +44,15 @@ getPostsR = do
     posts <- runDB $ selectList [] [Asc PostTitulo]
     -- test <- mapM (get404 . entityVal) posts
     return $ object ["results" .= True]
+
+optionsPostR :: PostId -> Handler RepPlain
+optionsPostR postId = do
+    addHeader "Access-Control-Allow-Origin" "*"
+    addHeader "Access-Control-Allow-Methods" "PUT, OPTIONS, POST, GET"
+    return $ RepPlain $ toContent ("" :: Text)
+
+optionsAddPostR :: Handler RepPlain
+optionsAddPostR = do
+    addHeader "Access-Control-Allow-Origin" "*"
+    addHeader "Access-Control-Allow-Methods" "PUT, OPTIONS, POST, GET"
+    return $ RepPlain $ toContent ("" :: Text)

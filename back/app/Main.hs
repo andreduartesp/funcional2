@@ -13,6 +13,6 @@ connStr = "dbname=funcional host=localhost user=myuser password=mypass port=5432
 
 main::IO()
 main = runStdoutLoggingT $ withPostgresqlPool connStr 10 $ \pool -> liftIO $ do
-       flip runSqlPersistMPool pool $ do
-              runMigration migrateAll
-       warp 8080 (App pool)
+    flip runSqlPersistMPool pool $ do
+        runMigration migrateAll
+    warp 8080 (App pool)

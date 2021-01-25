@@ -33,7 +33,7 @@ const ReadPost = ({ post, comentarios }) => {
   }
 
   const addComentario = async() => {
-    const retorn = fetch(`${process.env.REACT_APP_BACK}/comentario`, {
+    fetch(`${process.env.REACT_APP_BACK}/comentario`, {
       method: 'post',
       body: JSON.stringify({
         conteudo: comentario,
@@ -41,7 +41,6 @@ const ReadPost = ({ post, comentarios }) => {
         postId: 1
       })
     }).then(result => result.json())
-    console.log(retorn)
     setComentario('')
   }
 

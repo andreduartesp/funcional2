@@ -44,13 +44,13 @@ const Container = styled.div`
 
 const Post = () => {
   const { id } = useParams()
-  const [editMode, setEditMode] = useState(false)
+  const [editMode, setEditMode] = useState(true)
   const [post, setPost] = useState({})
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(async() => {
     const post = await fetch(`${process.env.REACT_APP_BACK}/post/${id}`).then(response => response.json())
-    setPost(post)
+    setPost({ ...post, id })
     setIsLoading(false)
   }, [])
 
@@ -58,6 +58,7 @@ const Post = () => {
     return <div></div>
   }
 
+  console.log(post)
   return (
     <Container>
       {(editMode ?

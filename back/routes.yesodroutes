@@ -1,6 +1,6 @@
 / HomeR GET
-/post/#PostId PostR GET PUT
-/post AddPostR POST
+/post/#PostId PostR GET PUT OPTIONS
+/post AddPostR POST OPTIONS
 /posts PostsR GET
 /comentarios/#PostId ComentariosR GET
 /comentario ComentarioR POST
