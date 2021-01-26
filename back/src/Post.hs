@@ -11,6 +11,28 @@ import Yesod
 import Yesod.Core
 import Data.Text
 import Control.Monad.IO.Class (liftIO)
+import qualified Database.Esqueleto      as E
+import           Database.Esqueleto      ((^.))
+
+data PostData = PostData (Entity Post, Entity Editor)
+
+instance ToJSON PostData where
+  toJSON (PostData (postEntity, editorEntity)) =
+    let
+      post = entityVal postEntity
+      postId = entityKey postEntity
+      editor = entityVal editorEntity
+      editorId = entityKey editorEntity
+    in
+    object
+      [ "id" .= postId
+      , "titulo" .= postTitulo post
+      , "conteudo" .= postConteudo post
+      , "editor" .= object
+        [ "id" .= editorId
+        , "nome" .= editorNome editor
+        ]
+      ]
 
 instance ToJSON Post where
     toJSON (Post titulo conteudo editorId) = object ["titulo" .= titulo, "conteudo" .= conteudo, "editorId" .= editorId]
@@ -42,8 +64,15 @@ putPostR postId = do
 getPostsR :: Handler Value
 getPostsR = do
     posts <- runDB $ selectList [] [Asc PostTitulo]
-    -- test <- mapM (get404 . entityVal) posts
-    return $ object ["results" .= True]
+    allPosts <- runDB
+         $ E.select
+         $ E.from $ \(post `E.InnerJoin` editor) -> do
+              E.on $ post ^. PostEditorId E.==. editor ^. EditorId
+              E.orderBy [E.desc (post ^. PostId)]
+              return (post, editor)
+    let allPosts' = PostData <$>  allPosts
+
+    return $ object ["results" .= allPosts']
 
 optionsPostR :: PostId -> Handler RepPlain
 optionsPostR postId = do
