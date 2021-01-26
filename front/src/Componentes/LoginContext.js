@@ -1,10 +1,32 @@
-import { createContext, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 
 export const LoginContext = createContext({})
 
 export default ({ children }) => {
-  const [usuario, setUsuario] = useState(null)
-  const [editor, setEditor] = useState(null)
+  const [usuario, setUsuarioVal] = useState(null)
+  const [editor, setEditorVal] = useState(null)
+
+  useEffect(() => {
+    const usuario = localStorage.getItem("usuario")
+    const editor = localStorage.getItem("editor")
+    if (usuario) {
+      setUsuarioVal(parseInt(usuario))
+    }
+
+    if (editor) {
+      setEditorVal(parseInt(editor))
+    }
+  })
+
+  const setUsuario = (usuario) => {
+    setUsuarioVal(usuario)
+    localStorage.setItem('usuario', usuario)
+  }
+
+  const setEditor = (editor) => {
+    setEditorVal(editor)
+    localStorage.setItem('editor', editor)
+  }
 
   const value = {
     usuario,
