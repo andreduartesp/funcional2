@@ -44,7 +44,7 @@ const Container = styled.div`
 
 const Post = () => {
   const { id } = useParams()
-  const [editMode, setEditMode] = useState(true)
+  const [editMode, setEditMode] = useState(false)
   const [post, setPost] = useState({})
   const [isLoading, setIsLoading] = useState(true)
 

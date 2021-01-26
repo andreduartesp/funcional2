@@ -20,10 +20,11 @@ const ListaPosts = () => {
   const [posts, setPosts] = useState([])
 
   useEffect(() => {
+    console.log('start fetch')
     fetch(`${process.env.REACT_APP_BACK}/posts`, {})
-    .then(result => result.json())
-    .then(resultJson => setPosts(resultJson.results))
-  })
+      .then(result => result.json())
+      .then(resultJson => setPosts(resultJson.results))
+  }, [])
 
   return (
     <Container>
