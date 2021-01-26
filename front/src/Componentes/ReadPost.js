@@ -10,6 +10,27 @@ const Text = styled.textarea`
   padding: 10px;
   font-size: 15px;
 `
+
+const NoComentario = styled.div`
+  width: calc(100% - 60px);
+  height: 120px;
+  margin: 0 20px;
+  padding: 10px;
+  border-color: gray;
+  border-style: solid;
+  border-width: 1px;
+  background-color: gray;
+  display: flex;
+  justify-content: center;
+  align-items: center
+`
+
+const NoComentarioText = styled.span`
+  color: white;
+  font-size: 22px;
+  font-weight: 700;
+`
+
 const AddComentarioContainer = styled.div`
   display: flex;
   margin: 10px 20px;
@@ -53,10 +74,18 @@ const ReadPost = ({ post, comentarios }) => {
       <PostComponent {...post} />
       <h3>Comentarios:</h3>
       <h4>Novo Comentário</h4>
-      <Text value={comentario} onChange={handleComentario} />
-      <AddComentarioContainer>
-        <AddComentario onClick={addComentario}>Adicionar Comentário</AddComentario>
-      </AddComentarioContainer>
+      {false ? (
+        <>
+          <Text value={comentario} onChange={handleComentario} />
+          <AddComentarioContainer>
+            <AddComentario onClick={addComentario}>Adicionar Comentário</AddComentario>
+          </AddComentarioContainer>
+        </>
+      ) : (
+        <NoComentario>
+          <NoComentarioText>Você precisa estar logado para poder comentar no site</NoComentarioText>
+        </NoComentario>
+      )}
       {comentarios.map((comentario) => (
         <ComentarioComponent {...comentario} />
       ))}
