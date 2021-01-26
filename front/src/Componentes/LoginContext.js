@@ -3,7 +3,7 @@ import { createContext, useState } from 'react'
 export const LoginContext = createContext({})
 
 export default ({ children }) => {
-  const [usuario, setUsuario] = useState(3)
+  const [usuario, setUsuario] = useState(null)
   const [editor, setEditor] = useState(null)
 
   const value = {
