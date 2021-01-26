@@ -47,7 +47,7 @@ const Header = () => {
       <Container>
         <Titulo>Bem Vindo ao Blog</Titulo>
         <BotoesContainer>
-          {usuario ? (
+          {!!usuario ? (
             <StyledLink onClick={logout}>SAIR</StyledLink>
           ) : (
             <>

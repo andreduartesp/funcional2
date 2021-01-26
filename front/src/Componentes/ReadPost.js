@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { LoginContext } from '../Componentes/LoginContext'
 import PostComponent from './PostComponent'
 import ComentarioComponent from './ComentarioComponent'
 import styled from 'styled-components'
@@ -48,6 +49,7 @@ const AddComentario = styled.button`
 
 const ReadPost = ({ post, comentarios }) => {
   const [comentario, setComentario] = useState('')
+  const { usuario } = useContext(LoginContext)
 
   const handleComentario = (ev) => {
     setComentario(ev.currentTarget.value)
@@ -58,7 +60,7 @@ const ReadPost = ({ post, comentarios }) => {
       method: 'post',
       body: JSON.stringify({
         conteudo: comentario,
-        usuarioId: 3,
+        usuarioId: parseInt(usuario),
         postId: parseInt(post.id)
       }),
       credentials: "include",
@@ -74,7 +76,7 @@ const ReadPost = ({ post, comentarios }) => {
       <PostComponent {...post} />
       <h3>Comentarios:</h3>
       <h4>Novo Comentário</h4>
-      {false ? (
+      {!!usuario ? (
         <>
           <Text value={comentario} onChange={handleComentario} />
           <AddComentarioContainer>
