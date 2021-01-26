@@ -37,12 +37,15 @@ const ReadPost = ({ post, comentarios }) => {
       method: 'post',
       body: JSON.stringify({
         conteudo: comentario,
-        usuarioId: 1,
-        postId: 1
+        usuarioId: 3,
+        postId: parseInt(post.id)
       }),
       credentials: "include",
-    }).then(result => result.json())
-    setComentario('')
+    })
+      .then(result => result.json())
+      .then(() => {
+        setComentario('')
+      })
   }
 
   return (

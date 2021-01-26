@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import PostComponent from '../Componentes/PostComponent'
+import Header from '../Componentes/Header'
 
 const Container = styled.div`
   margin: 20px;
@@ -27,13 +28,16 @@ const ListaPosts = () => {
   }, [])
 
   return (
-    <Container>
-      {posts.map((post) => (
-        <PostContainer to={`post/${post.id}`}>
-          <PostComponent {...post} key={post.id} lista />
-        </PostContainer>
-      ))}
-    </Container>
+    <>
+    <Header />
+      <Container>
+        {posts.map((post) => (
+          <PostContainer to={`post/${post.id}`}>
+            <PostComponent {...post} key={post.id} lista />
+          </PostContainer>
+        ))}
+      </Container>
+    </>
   )
 }
 
