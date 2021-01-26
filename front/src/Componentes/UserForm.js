@@ -54,9 +54,8 @@ const UserForm = ({ usuario }) => {
           usuario: email,
           senha: md5(senha),
         }),
-        credentials: "include",
       }).then(result => result.json())
-      history.push(`/`)
+      // history.push(`/`)
     }
   }
 

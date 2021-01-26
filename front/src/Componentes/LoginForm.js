@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { LoginContext } from '../Componentes/LoginContext'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 import md5 from 'md5'
@@ -27,22 +28,38 @@ const SubmitWrapper = styled.div`
   justify-content: flex-end;
 `
 
+const ErroContainer = styled.div`
+
+`
+
+const ErroSpan = styled.span`
+
+`
+
 const UserForm = () => {
   const [email, setEmail] = useState("")
   const [senha, setSenha] = useState("")
+  const [erroLogin, setErroLogin] = useState(false)
   const history = useHistory()
+  const { setUsuario } = useContext(LoginContext)
 
   const handleSubmit = async(ev) => {
     ev.preventDefault()
-    fetch(`${process.env.REACT_APP_BACK}/login`, {
+    fetch(`${process.env.REACT_APP_BACK}/login/${email}/${md5(senha)}`, {
       method: 'POST',
-      body: JSON.stringify({
-        usuario: email,
-        senha: md5(senha),
-      }),
-      credentials: "include",
-    }).then(result => result.json())
-    history.push(`/`)
+    })
+      .then(result => result.json())
+      .then((usuario) => {
+        console.log(usuario)
+        if (usuario.results[0]){
+          setUsuario(usuario.results[0])
+          history.push(`/`)
+        } else {
+          setErroLogin(true)
+        }
+      }).catch(e => {
+        setErroLogin(true)
+      })
   }
 
   return (
@@ -61,9 +78,14 @@ const UserForm = () => {
           <InputTitulo type='password' value={senha} onChange={(ev) => setSenha(ev.currentTarget.value)} />
         </InputWrapper>
         <SubmitWrapper>
-          <InputSubmit type='submit' value='Cadastrar' />
+          <InputSubmit type='submit' value='Entrar' />
         </SubmitWrapper>
       </form>
+      {erroLogin && (
+        <ErroContainer>
+          <ErroSpan>Email ou senha inválido</ErroSpan>
+        </ErroContainer>
+      )}
     </>
   )
 }

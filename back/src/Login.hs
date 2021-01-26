@@ -8,7 +8,20 @@ module Login where
 
 import Foundation
 import Yesod
+import Data.Text
 import Control.Monad.IO.Class (liftIO)
+import qualified Database.Esqueleto as E
+import Database.Esqueleto ((^.))
+
+data UsuarioData = UsuarioData(Entity Usuario)
+
+-- instance ToJSON UsuarioData where
+--     toJSON usuarioData(usuarioEntity) =
+--         let
+--             usuario = entityVal usuarioEntity
+--             usuarioId = entityKey usuarioEntity
+--         in
+--             object[ "nome" .= usuarioNome usuario, "usuario" .= usuarioUsuario usuario]
 
 instance ToJSON Usuario where
     toJSON (Usuario nome usuario senha) = object ["nome" .= nome, "usuario" .= usuario, "senha" .= senha]
@@ -20,28 +33,21 @@ instance FromJSON Usuario where
         senha <- v .: "senha"
         return (Usuario nome usuario senha)
 
--- data Login [Char] [Char]
-
--- instance FromJSON Login where
---     parseJSON (Object v) = do
---         usuario <- v .: "usuario"
---         senha <- v .: "senha"
---         return (Login usuario senha)
-
 fromJust :: Maybe (Entity a) -> a
 fromJust Nothing = error "Maybe.fromJust: Nothing"
 fromJust (Just (Entity x y)) = y
 
-postLoginR :: Handler Value
-postLoginR = do
-    -- usuario <- requireInsecureJsonBody :: Handler Login
-    setSession "usuario" "1"
-    databaseUsuario <- runDB $ selectFirst [UsuarioUsuario ==. "eu@andreduartesp.net"] []
-    liftIO $ print $ toJSON $ fromJust databaseUsuario
-    return $ object ["logged" .= True]
+postLoginR :: Text -> Text -> Handler Value
+postLoginR usuarioReq senhaReq = do
+    addHeader "Access-Control-Allow-Credentials" "true"
+    let usuarioa = ("eu@andreduartesp.net" :: Text)
+    databaseUsuario <- runDB $ selectList [UsuarioUsuario ==. usuarioReq, UsuarioSenha ==. senhaReq] []
+    let usuario' = Prelude.map (\x -> entityKey x) databaseUsuario
+    return $ object ["results" .= usuario']
 
 postCadastrarR :: Handler Value
 postCadastrarR = do
+    addHeader "Access-Control-Allow-Credentials" "true"
     usuario <- requireInsecureJsonBody :: Handler Usuario
     usuarioId <- runDB $ insert usuario
     return $ object ["id" .= usuarioId]
@@ -54,6 +60,7 @@ getUsuarioR usuarioId = do
 
 postAtualizarR :: UsuarioId -> Handler Value
 postAtualizarR usuarioId = do
+    addHeader "Access-Control-Allow-Credentials" "true"
     usuario <- requireInsecureJsonBody :: Handler Usuario
     runDB $ Yesod.replace usuarioId $ usuario
     returnJson usuario

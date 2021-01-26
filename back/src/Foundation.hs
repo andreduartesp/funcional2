@@ -26,6 +26,8 @@ import Database.Persist.Postgresql
 share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persistLowerCase|
 Editor
     nome Text
+    email Text
+    senha Text
     deriving Show
 Usuario
     nome Text

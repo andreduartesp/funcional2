@@ -4,7 +4,7 @@
 /posts PostsR GET
 /comentarios/#PostId ComentariosR GET
 /comentario ComentarioR POST
-/login LoginR POST
+/login/#Text/#Text LoginR POST
 /cadastrar CadastrarR POST
 /atualizar/#UsuarioId AtualizarR POST
 /usuario/#UsuarioId UsuarioR GET
