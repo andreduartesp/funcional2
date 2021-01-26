@@ -6,6 +6,7 @@ import ReadPost from '../Componentes/ReadPost'
 import EditPost from '../Componentes/EditPost'
 import Header from '../Componentes/Header'
 import { useContext } from 'react'
+import { Link } from 'react-router-dom'
 
 const Container = styled.div`
   margin: 0 auto;
@@ -24,6 +25,19 @@ const SwitchButton = styled.button`
   right: 30px;
 `
 
+const DenyContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: cente;
+  flex: 1;
+`
+
+const DenyText = styled(Link)`
+  color: red;
+  font-size: 30px;
+  text-decoration: none;
+`
+
 const Post = () => {
   const { id } = useParams()
   const [editMode, setEditMode] = useState(false)
@@ -31,6 +45,7 @@ const Post = () => {
   const [post, setPost] = useState({})
   const [isLoading, setIsLoading] = useState(true)
   const { editor } = useContext(LoginContext)
+  const [deny, setDeny] = useState(false)
 
   useEffect(() => {
     if (id) {
@@ -43,11 +58,27 @@ const Post = () => {
       fetch(`${process.env.REACT_APP_BACK}/comentarios/${id}`, {credentials: "include"})
         .then(response => response.json())
         .then(comentarios => setComentarios(comentarios.results))
+    } else if (editor) {
+      setEditMode(true)
+      setIsLoading(false)
+    } else {
+      setDeny(true)
+      setIsLoading(false)
     }
   }, [id])
 
   if (isLoading) {
     return <div></div>
+  }
+
+  if (deny) {
+    return (
+      <DenyContainer>
+        <DenyText to={'/editor/add'}>
+          {'Você precisa ser um editor pra acessar essa pagina, clique aqui para adicionar um editor'}
+        </DenyText>
+      </DenyContainer>
+    )
   }
 
   const mudar = () => {

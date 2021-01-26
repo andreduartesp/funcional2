@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { LoginContext } from '../Componentes/LoginContext'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 import md5 from 'md5'
@@ -33,6 +34,7 @@ const UserForm = ({ usuario }) => {
   const [senha, setSenha] = useState(usuario.id ? "******" : "")
   const [confirmacao, setConfirmacao] = useState(usuario.id ? "******" : "")
   const history = useHistory()
+  const { setUsuario } = useContext(LoginContext)
 
   const handleSubmit = async(ev) => {
     ev.preventDefault()
@@ -55,7 +57,8 @@ const UserForm = ({ usuario }) => {
           senha: md5(senha),
         }),
       }).then(result => result.json())
-      // history.push(`/`)
+      setUsuario(newId.id)
+      history.push(`/`)
     }
   }
 

@@ -35,12 +35,14 @@ getEditorR editorId = do
 
 postAddEditorR :: Handler Value
 postAddEditorR = do
+    addHeader "Access-Control-Allow-Credentials" "true"
     editor <- requireInsecureJsonBody :: Handler Editor
     editorId <- runDB $ insert editor
     return $ object ["id" .= editorId]
 
 putEditorR :: EditorId -> Handler Value
 putEditorR editorId = do
+    addHeader "Access-Control-Allow-Credentials" "true"
     editor <- requireInsecureJsonBody :: Handler Editor
     runDB $ Yesod.replace editorId $ editor
     returnJson editor
