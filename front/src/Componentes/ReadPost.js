@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { LoginContext } from '../Componentes/LoginContext'
 import PostComponent from './PostComponent'
 import ComentarioComponent from './ComentarioComponent'
 import styled from 'styled-components'
@@ -10,6 +11,27 @@ const Text = styled.textarea`
   padding: 10px;
   font-size: 15px;
 `
+
+const NoComentario = styled.div`
+  width: calc(100% - 60px);
+  height: 120px;
+  margin: 0 20px;
+  padding: 10px;
+  border-color: gray;
+  border-style: solid;
+  border-width: 1px;
+  background-color: gray;
+  display: flex;
+  justify-content: center;
+  align-items: center
+`
+
+const NoComentarioText = styled.span`
+  color: white;
+  font-size: 22px;
+  font-weight: 700;
+`
+
 const AddComentarioContainer = styled.div`
   display: flex;
   margin: 10px 20px;
@@ -27,6 +49,7 @@ const AddComentario = styled.button`
 
 const ReadPost = ({ post, comentarios }) => {
   const [comentario, setComentario] = useState('')
+  const { usuario } = useContext(LoginContext)
 
   const handleComentario = (ev) => {
     setComentario(ev.currentTarget.value)
@@ -37,7 +60,7 @@ const ReadPost = ({ post, comentarios }) => {
       method: 'post',
       body: JSON.stringify({
         conteudo: comentario,
-        usuarioId: 3,
+        usuarioId: parseInt(usuario),
         postId: parseInt(post.id)
       }),
       credentials: "include",
@@ -53,10 +76,18 @@ const ReadPost = ({ post, comentarios }) => {
       <PostComponent {...post} />
       <h3>Comentarios:</h3>
       <h4>Novo Comentário</h4>
-      <Text value={comentario} onChange={handleComentario} />
-      <AddComentarioContainer>
-        <AddComentario onClick={addComentario}>Adicionar Comentário</AddComentario>
-      </AddComentarioContainer>
+      {!!usuario ? (
+        <>
+          <Text value={comentario} onChange={handleComentario} />
+          <AddComentarioContainer>
+            <AddComentario onClick={addComentario}>Adicionar Comentário</AddComentario>
+          </AddComentarioContainer>
+        </>
+      ) : (
+        <NoComentario>
+          <NoComentarioText>Você precisa estar logado para poder comentar no site</NoComentarioText>
+        </NoComentario>
+      )}
       {comentarios.map((comentario) => (
         <ComentarioComponent {...comentario} />
       ))}

@@ -36,7 +36,7 @@ const ErroSpan = styled.span`
 
 `
 
-const UserForm = () => {
+const LoginEditor = () => {
   const [email, setEmail] = useState("")
   const [senha, setSenha] = useState("")
   const [erroLogin, setErroLogin] = useState(false)
@@ -45,7 +45,7 @@ const UserForm = () => {
 
   const handleSubmit = async(ev) => {
     ev.preventDefault()
-    fetch(`${process.env.REACT_APP_BACK}/login/${email}/${md5(senha)}`, {
+    fetch(`${process.env.REACT_APP_BACK}/logineditor/${email}/${md5(senha)}`, {
       method: 'POST',
     })
       .then(result => result.json())
@@ -90,4 +90,4 @@ const UserForm = () => {
   )
 }
 
-export default UserForm
+export default LoginEditor

@@ -8,8 +8,8 @@ module Comentarios where
 
 import Foundation
 import Yesod
-import qualified Database.Esqueleto      as E
-import           Database.Esqueleto      ((^.))
+import qualified Database.Esqueleto as E
+import Database.Esqueleto ((^.))
 
 data ComentarioData = ComentarioData(Entity Comentario, Entity Usuario)
 

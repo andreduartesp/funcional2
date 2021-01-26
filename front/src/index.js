@@ -6,6 +6,7 @@ import Post from './Paginas/Post'
 import Usuarios from './Paginas/Usuarios'
 import Editor from './Paginas/Editor'
 import Login from './Paginas/Login'
+import LoginEditor from './Paginas/LoginEditor'
 import Header from './Componentes/Header'
 import LoginContextProvider from './Componentes/LoginContext'
 import reportWebVitals from './reportWebVitals'
@@ -20,7 +21,7 @@ ReactDOM.render(
           <Route path="/post/:id" exact={true} component={Post} />
           <Route path="/post/" exact={true} component={Post} />
           <Route path="/editor/:id" exact={true} component={Editor} />
-          <Route path="/editor/" exact={true} component={Editor} />
+          <Route path="/editor/" exact={true} component={LoginEditor} />
           <Route path="/cadastrar" exact={true} component={Usuarios} />
           <Route path="/perfil/:id" exact={true} component={Usuarios} />
           <Route path="/login" exact={true} component={Login} />

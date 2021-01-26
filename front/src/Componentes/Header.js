@@ -22,32 +22,41 @@ const Titulo = styled.h1`
   text-align: center;
   margin: 0 auto;
   color: white;
+  text-decoration: none;
 `
 
 const BotoesContainer = styled.div`
-  position: absolut;
+  position: absolute;
   right: 0;
   margin: 0 20px;
 `
 
 const StyledLink = styled(Link)`
   color: white;
-  font-weight: 700;
+  font-weight: 700;post/21
   text-decoration: none;
   padding: 10px;
 `
 
+const TitleLink = styled(Link)`
+  text-decoration: none;
+`
+
 const Header = () => {
-  const { usuario } = useContext(LoginContext)
+  const { usuario, setUsuario } = useContext(LoginContext)
 
-  const logout = async() => {}
-
+  const logout = async() => {
+    // matar sessao no server
+    setUsuario(null)
+  }
   return (
     <>
       <Container>
-        <Titulo>Bem Vindo ao Blog</Titulo>
+        <TitleLink to='/'>
+          <Titulo>Bem Vindo ao Blog</Titulo>
+        </TitleLink>
         <BotoesContainer>
-          {usuario ? (
+          {!!usuario ? (
             <StyledLink onClick={logout}>SAIR</StyledLink>
           ) : (
             <>
