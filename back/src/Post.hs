@@ -46,6 +46,7 @@ instance FromJSON Post where
 
 getPostR :: PostId -> Handler Value
 getPostR postId = do
+    addHeader "Access-Control-Allow-Credentials" "true"
     post <- runDB $ get404 postId
     returnJson post
 
@@ -63,6 +64,7 @@ putPostR postId = do
 
 getPostsR :: Handler Value
 getPostsR = do
+    addHeader "Access-Control-Allow-Credentials" "true"
     posts <- runDB $ selectList [] [Asc PostTitulo]
     allPosts <- runDB
          $ E.select
@@ -78,10 +80,12 @@ optionsPostR :: PostId -> Handler RepPlain
 optionsPostR postId = do
     addHeader "Access-Control-Allow-Origin" "*"
     addHeader "Access-Control-Allow-Methods" "PUT, OPTIONS, POST, GET"
+    addHeader "Access-Control-Allow-Credentials" "true"
     return $ RepPlain $ toContent ("" :: Text)
 
 optionsAddPostR :: Handler RepPlain
 optionsAddPostR = do
     addHeader "Access-Control-Allow-Origin" "*"
     addHeader "Access-Control-Allow-Methods" "PUT, OPTIONS, POST, GET"
+    addHeader "Access-Control-Allow-Credentials" "true"
     return $ RepPlain $ toContent ("" :: Text)

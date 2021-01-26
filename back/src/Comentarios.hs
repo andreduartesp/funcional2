@@ -21,6 +21,7 @@ instance FromJSON Comentario where
 
 getComentariosR :: PostId -> Handler Value
 getComentariosR postId = do
+    addHeader "Access-Control-Allow-Credentials" "true"
     runDB $ selectList [ComentarioPostId ==. postId] []
     return $ object ["teste" .= True]
 
