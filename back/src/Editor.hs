@@ -11,12 +11,14 @@ import Yesod
 import Data.Text
 
 instance ToJSON Editor where
-    toJSON (Editor nome) = object ["nome" .= nome]
+    toJSON (Editor nome email senha) = object ["nome" .= nome, "email" .= email, "senha" .= senha]
 
 instance FromJSON Editor where
     parseJSON (Object v) = do
         nome <- v .: "nome"
-        return (Editor nome)
+        email <- v .: "email"
+        senha <- v .: "senha"
+        return (Editor nome email senha)
 
 getEditorR :: EditorId -> Handler Value
 getEditorR editorId = do
