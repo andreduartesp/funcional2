@@ -47,6 +47,7 @@ getComentariosR postId = do
          $ E.select
          $ E.from $ \(comentario `E.InnerJoin` usuario) -> do
               E.on $ comentario ^. ComentarioUsuarioId E.==. usuario ^. UsuarioId
+              E.where_ $ comentario ^. ComentarioPostId E.==. E.val postId
               E.orderBy [E.desc (comentario ^. ComentarioId)]
               return (comentario, usuario)
     let allComentarios' = ComentarioData <$>  allComentarios
