@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import LoginForm from '../Componentes/LoginForm'
+import LoginEditorForm from '../Componentes/LoginEditorForm'
 
 const Container = styled.div`
   margin: 0 auto;
@@ -37,7 +37,7 @@ const LoginEditor = () => {
       </HeaderContainer>
       <FakeContainer></FakeContainer>
       <Container>
-        <LoginForm />
+        <LoginEditorForm />
       </Container>
     </>
   )
