@@ -5,6 +5,7 @@ import ListaPosts from './Paginas/ListaPosts'
 import Post from './Paginas/Post'
 import Usuarios from './Paginas/Usuarios'
 import Editor from './Paginas/Editor'
+import Login from './Paginas/Login'
 import Header from './Componentes/Header'
 import reportWebVitals from './reportWebVitals'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
@@ -21,6 +22,7 @@ ReactDOM.render(
         <Route path="/editor/" exact={true} component={Editor} />
         <Route path="/cadastrar" exact={true} component={Usuarios} />
         <Route path="/perfil/:id" exact={true} component={Usuarios} />
+        <Route path="/login" exact={true} component={Login} />
       </Switch>
     </BrowserRouter>
   </React.StrictMode>,

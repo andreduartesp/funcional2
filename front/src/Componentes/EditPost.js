@@ -52,7 +52,8 @@ const EditPost = ({ post }) => {
           conteudo,
           titulo,
           editorId: 1,
-        })
+        }),
+        credentials: "include",
       }).then(result => result.json())
     } else {
       const newId = await fetch(`${process.env.REACT_APP_BACK}/post`, {
@@ -61,7 +62,8 @@ const EditPost = ({ post }) => {
           conteudo,
           titulo,
           editorId: 1,
-        })
+        }),
+        credentials: "include",
       }).then(result => result.json())
       history.push(`/post/${newId.id}`)
     }

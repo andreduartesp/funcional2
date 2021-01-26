@@ -8,6 +8,7 @@ module Login where
 
 import Foundation
 import Yesod
+import Control.Monad.IO.Class (liftIO)
 
 instance ToJSON Usuario where
     toJSON (Usuario nome usuario senha) = object ["nome" .= nome, "usuario" .= usuario, "senha" .= senha]
@@ -19,11 +20,25 @@ instance FromJSON Usuario where
         senha <- v .: "senha"
         return (Usuario nome usuario senha)
 
+-- data Login [Char] [Char]
+
+-- instance FromJSON Login where
+--     parseJSON (Object v) = do
+--         usuario <- v .: "usuario"
+--         senha <- v .: "senha"
+--         return (Login usuario senha)
+
+fromJust :: Maybe (Entity a) -> a
+fromJust Nothing = error "Maybe.fromJust: Nothing"
+fromJust (Just (Entity x y)) = y
+
 postLoginR :: Handler Value
 postLoginR = do
-    usuario <- requireInsecureJsonBody :: Handler Usuario
-    setSession key val
-    return $ object ["teste" .= True]
+    -- usuario <- requireInsecureJsonBody :: Handler Login
+    setSession "usuario" "1"
+    databaseUsuario <- runDB $ selectFirst [UsuarioUsuario ==. "eu@andreduartesp.net"] []
+    liftIO $ print $ toJSON $ fromJust databaseUsuario
+    return $ object ["logged" .= True]
 
 postCadastrarR :: Handler Value
 postCadastrarR = do

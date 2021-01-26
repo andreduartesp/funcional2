@@ -43,7 +43,8 @@ const UserForm = ({ usuario }) => {
           nome,
           usuario: email,
           senha: senha === '"******' ? senha : md5(senha),
-        })
+        }),
+        credentials: "include",
       }).then(result => result.json())
     } else {
       const newId = await fetch(`${process.env.REACT_APP_BACK}/cadastrar`, {
@@ -52,7 +53,8 @@ const UserForm = ({ usuario }) => {
           nome,
           usuario: email,
           senha: md5(senha),
-        })
+        }),
+        credentials: "include",
       }).then(result => result.json())
       history.push(`/`)
     }

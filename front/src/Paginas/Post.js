@@ -50,7 +50,7 @@ const Post = () => {
 
   useEffect(async() => {
     if (id) {
-      const post = await fetch(`${process.env.REACT_APP_BACK}/post/${id}`).then(response => response.json())
+      const post = await fetch(`${process.env.REACT_APP_BACK}/post/${id}`, {credentials: "include"}).then(response => response.json())
       setPost({ ...post, id })
     }
     setIsLoading(false)

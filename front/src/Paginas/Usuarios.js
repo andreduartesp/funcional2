@@ -15,7 +15,7 @@ const Usuarios = () => {
 
   useEffect(async() => {
     if (id) {
-      const usuario = await fetch(`${process.env.REACT_APP_BACK}/usuario/${id}`).then(response => response.json())
+      const usuario = await fetch(`${process.env.REACT_APP_BACK}/usuario/${id}`, {credentials: "include"}).then(response => response.json())
       setUsuario({ ...usuario, id })
     }
     setIsLoading(false)

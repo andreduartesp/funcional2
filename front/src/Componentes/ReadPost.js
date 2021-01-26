@@ -39,7 +39,8 @@ const ReadPost = ({ post, comentarios }) => {
         conteudo: comentario,
         usuarioId: 1,
         postId: 1
-      })
+      }),
+      credentials: "include",
     }).then(result => result.json())
     setComentario('')
   }

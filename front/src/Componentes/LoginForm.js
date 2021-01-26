@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
+import md5 from 'md5'
 
 const InputWrapper = styled.div``
 
@@ -26,30 +27,22 @@ const SubmitWrapper = styled.div`
   justify-content: flex-end;
 `
 
-const EditPost = ({ editor }) => {
-  const [nome, setNome] = useState(editor.nome || "")
+const UserForm = () => {
+  const [email, setEmail] = useState("")
+  const [senha, setSenha] = useState("")
   const history = useHistory()
 
   const handleSubmit = async(ev) => {
     ev.preventDefault()
-    if (editor.id) {
-      fetch(`${process.env.REACT_APP_BACK}/editor/${editor.id}`, {
-        method: 'PUT',
-        body: JSON.stringify({
-          nome,
-        }),
-        credentials: "include",
-      }).then(result => result.json())
-    } else {
-      const newId = await fetch(`${process.env.REACT_APP_BACK}/editor`, {
-        method: 'POST',
-        body: JSON.stringify({
-          nome,
-        }),
-        credentials: "include",
-      }).then(result => result.json())
-      history.push(`/editor/${newId.id}`)
-    }
+    fetch(`${process.env.REACT_APP_BACK}/login`, {
+      method: 'POST',
+      body: JSON.stringify({
+        usuario: email,
+        senha: md5(senha),
+      }),
+      credentials: "include",
+    }).then(result => result.json())
+    history.push(`/`)
   }
 
   return (
@@ -57,16 +50,22 @@ const EditPost = ({ editor }) => {
       <form onSubmit={handleSubmit}>
         <InputWrapper>
           <Titulo>
-            Nome:
+            Email:
           </Titulo>
-          <InputTitulo type='text' value={nome} onChange={(ev) => setNome(ev.currentTarget.value)} />
+          <InputTitulo type='text' value={email} onChange={(ev) => setEmail(ev.currentTarget.value)} />
+        </InputWrapper>
+        <InputWrapper>
+          <Titulo>
+            Senha:
+          </Titulo>
+          <InputTitulo type='password' value={senha} onChange={(ev) => setSenha(ev.currentTarget.value)} />
         </InputWrapper>
         <SubmitWrapper>
-          <InputSubmit type='submit' value='Enviar Post' />
+          <InputSubmit type='submit' value='Cadastrar' />
         </SubmitWrapper>
       </form>
     </>
   )
 }
 
-export default EditPost
+export default UserForm
