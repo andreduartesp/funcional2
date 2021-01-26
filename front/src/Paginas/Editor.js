@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { useParams } from 'react-router-dom'
 import EditorForm from '../Componentes/EditorForm'
+import Header from '../Componentes/Header'
 
 const Container = styled.div`
   margin: 0 auto;
@@ -26,9 +27,12 @@ const Post = () => {
   }
 
   return (
-    <Container>
-      <EditorForm editor={editor} />
-    </Container>
+    <>
+      <Header />
+      <Container>
+        <EditorForm editor={editor} />
+      </Container>
+    </>
   )
 }
 

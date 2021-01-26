@@ -25,7 +25,7 @@ instance ToJSON ComentarioData where
         [ "id" .= comentarioId
         , "conteudo" .= comentarioConteudo comentario
         , "usuario" .= object
-            [ 
+            [
               "nome" .= usuarioNome usuario
             , "usuario" .= usuarioUsuario usuario
             ]
@@ -36,9 +36,9 @@ instance ToJSON Comentario where
 instance FromJSON Comentario where
     parseJSON (Object v) = do
         conteudo <- v .: "conteudo"
-        comentarioId <- v .: "comentarioId"
+        postId <- v .: "postId"
         usuarioId <- v .: "usuarioId"
-        return (Comentario conteudo comentarioId usuarioId)
+        return (Comentario conteudo usuarioId postId)
 
 getComentariosR :: PostId -> Handler Value
 getComentariosR postId = do
@@ -55,6 +55,7 @@ getComentariosR postId = do
 
 postComentarioR ::  Handler Value
 postComentarioR = do
+    addHeader "Access-Control-Allow-Credentials" "true"
     comentario <- requireInsecureJsonBody :: Handler Comentario
     comentarioId <- runDB $ insert comentario
     return $ object ["comentario" .= comentarioId]

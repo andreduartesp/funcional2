@@ -3,39 +3,7 @@ import styled from 'styled-components'
 import { useParams } from 'react-router-dom'
 import ReadPost from '../Componentes/ReadPost'
 import EditPost from '../Componentes/EditPost'
-
-const comentarios = [
-  {
-    conteudo: "conteudo de um comentario mega importante pro blog",
-    usuario: {
-      nome: "Nome do usuario"
-    },
-  },
-  {
-    conteudo: "conteudo de um comentario mega importante pro blog",
-    usuario: {
-      nome: "Nome do usuario"
-    },
-  },
-  {
-    conteudo: "conteudo de um comentario mega importante pro blog",
-    usuario: {
-      nome: "Nome do usuario"
-    },
-  },
-  {
-    conteudo: "conteudo de um comentario mega importante pro blog",
-    usuario: {
-      nome: "Nome do usuario"
-    },
-  },
-  {
-    conteudo: "conteudo de um comentario mega importante pro blog",
-    usuario: {
-      nome: "Nome do usuario"
-    },
-  },
-]
+import Header from '../Componentes/Header'
 
 const Container = styled.div`
   margin: 0 auto;
@@ -45,15 +13,22 @@ const Container = styled.div`
 const Post = () => {
   const { id } = useParams()
   const [editMode, setEditMode] = useState(false)
+  const [comentarios, setComentarios] = useState([])
   const [post, setPost] = useState({})
   const [isLoading, setIsLoading] = useState(true)
 
-  useEffect(async() => {
+  useEffect(() => {
     if (id) {
-      const post = await fetch(`${process.env.REACT_APP_BACK}/post/${id}`, {credentials: "include"}).then(response => response.json())
-      setPost({ ...post, id })
+      fetch(`${process.env.REACT_APP_BACK}/post/${id}`, {credentials: "include"})
+        .then(response => response.json())
+        .then(post => {
+          setPost({ ...post, id })
+          setIsLoading(false)
+        })
+      fetch(`${process.env.REACT_APP_BACK}/comentarios/${id}`, {credentials: "include"})
+        .then(response => response.json())
+        .then(comentarios => setComentarios(comentarios.results))
     }
-    setIsLoading(false)
   }, [id])
 
   if (isLoading) {
@@ -61,12 +36,15 @@ const Post = () => {
   }
 
   return (
-    <Container>
-      {(editMode ?
-        <EditPost post={post} /> :
-        <ReadPost post={post} comentarios={comentarios} />
-      )}
-    </Container>
+    <>
+      <Header />
+      <Container>
+        {(editMode ?
+          <EditPost post={post} /> :
+          <ReadPost post={post} comentarios={comentarios} />
+        )}
+      </Container>
+    </>
   )
 }
 
