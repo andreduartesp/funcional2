@@ -48,6 +48,7 @@ postCadastrarR = do
 
 getUsuarioR :: UsuarioId -> Handler Value
 getUsuarioR usuarioId = do
+    addHeader "Access-Control-Allow-Credentials" "true"
     usuario <- runDB $ get404 usuarioId
     returnJson usuario
 

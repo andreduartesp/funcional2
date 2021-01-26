@@ -42,6 +42,7 @@ instance FromJSON Comentario where
 
 getComentariosR :: PostId -> Handler Value
 getComentariosR postId = do
+    addHeader "Access-Control-Allow-Credentials" "true"
     allComentarios <- runDB
          $ E.select
          $ E.from $ \(comentario `E.InnerJoin` usuario) -> do
