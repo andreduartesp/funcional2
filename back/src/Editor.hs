@@ -20,6 +20,13 @@ instance FromJSON Editor where
         senha <- v .: "senha"
         return (Editor nome email senha)
 
+postEditorLoginR :: Text -> Text -> Handler Value
+postEditorLoginR usuarioReq senhaReq = do
+    addHeader "Access-Control-Allow-Credentials" "true"
+    databaseUsuario <- runDB $ selectList [EditorEmail ==. usuarioReq, EditorSenha ==. senhaReq] []
+    let usuario' = Prelude.map (\x -> entityKey x) databaseUsuario
+    return $ object ["results" .= usuario']
+
 getEditorR :: EditorId -> Handler Value
 getEditorR editorId = do
     addHeader "Access-Control-Allow-Credentials" "true"

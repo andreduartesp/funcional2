@@ -41,18 +41,18 @@ const LoginEditor = () => {
   const [senha, setSenha] = useState("")
   const [erroLogin, setErroLogin] = useState(false)
   const history = useHistory()
-  const { setUsuario } = useContext(LoginContext)
+  const { setEditor } = useContext(LoginContext)
 
   const handleSubmit = async(ev) => {
     ev.preventDefault()
-    fetch(`${process.env.REACT_APP_BACK}/logineditor/${email}/${md5(senha)}`, {
+    fetch(`${process.env.REACT_APP_BACK}/editorLogin/${email}/${md5(senha)}`, {
       method: 'POST',
     })
       .then(result => result.json())
       .then((usuario) => {
         console.log(usuario)
         if (usuario.results[0]){
-          setUsuario(usuario.results[0])
+          setEditor(usuario.results[0])
           history.push(`/`)
         } else {
           setErroLogin(true)

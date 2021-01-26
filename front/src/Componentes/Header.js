@@ -46,7 +46,6 @@ const Header = () => {
   const { usuario, setUsuario } = useContext(LoginContext)
 
   const logout = async() => {
-    // matar sessao no server
     setUsuario(null)
   }
   return (

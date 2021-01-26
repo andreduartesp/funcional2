@@ -9,4 +9,5 @@
 /atualizar/#UsuarioId AtualizarR POST
 /usuario/#UsuarioId UsuarioR GET
 /editor/#EditorId EditorR GET PUT OPTIONS
+/editorLogin/#Text/#Text EditorLoginR POST
 /editor AddEditorR POST OPTIONS
