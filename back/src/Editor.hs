@@ -74,7 +74,7 @@ optionsAddEditorR = do
     return $ RepPlain $ toContent ("" :: Text)
 
 optionsEditoresR :: Handler RepPlain
-optionsAddEditorR = do
+optionsEditoresR = do
     addHeader "Access-Control-Allow-Origin" "*"
     addHeader "Access-Control-Allow-Methods" "PUT, OPTIONS, POST, GET"
     addHeader "Access-Control-Allow-Credentials" "true"

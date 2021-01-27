@@ -56,29 +56,43 @@ postAtualizarR usuarioId = do
     runDB $ Yesod.replace usuarioId $ usuario
     returnJson usuario
 
-optionsLoginR :: Handler RepPlain
-optionsAddEditorR = do
+optionsLoginR :: Text -> Text -> Handler RepPlain
+optionsLoginR login senha = do
     addHeader "Access-Control-Allow-Origin" "*"
     addHeader "Access-Control-Allow-Methods" "PUT, OPTIONS, POST, GET"
     addHeader "Access-Control-Allow-Credentials" "true"
     return $ RepPlain $ toContent ("" :: Text)
 
 optionsCadastrarR :: Handler RepPlain
-optionsAddEditorR = do
+optionsCadastrarR = do
     addHeader "Access-Control-Allow-Origin" "*"
     addHeader "Access-Control-Allow-Methods" "PUT, OPTIONS, POST, GET"
     addHeader "Access-Control-Allow-Credentials" "true"
     return $ RepPlain $ toContent ("" :: Text)
 
 optionsUsuariosR :: Handler RepPlain
-optionsAddEditorR = do
+optionsUsuariosR = do
     addHeader "Access-Control-Allow-Origin" "*"
     addHeader "Access-Control-Allow-Methods" "PUT, OPTIONS, POST, GET"
     addHeader "Access-Control-Allow-Credentials" "true"
     return $ RepPlain $ toContent ("" :: Text)
 
-optionsAtualizarR :: Handler RepPlain
-optionsAddEditorR = do
+optionsUsuarioR :: UsuarioId -> Handler RepPlain
+optionsUsuarioR usuario = do
+    addHeader "Access-Control-Allow-Origin" "*"
+    addHeader "Access-Control-Allow-Methods" "PUT, OPTIONS, POST, GET"
+    addHeader "Access-Control-Allow-Credentials" "true"
+    return $ RepPlain $ toContent ("" :: Text)
+
+optionsAtualizarR :: UsuarioId -> Handler RepPlain
+optionsAtualizarR usuarioid = do
+    addHeader "Access-Control-Allow-Origin" "*"
+    addHeader "Access-Control-Allow-Methods" "PUT, OPTIONS, POST, GET"
+    addHeader "Access-Control-Allow-Credentials" "true"
+    return $ RepPlain $ toContent ("" :: Text)
+
+optionsEditorLoginR :: Text -> Text -> Handler RepPlain
+optionsEditorLoginR usuario senha = do
     addHeader "Access-Control-Allow-Origin" "*"
     addHeader "Access-Control-Allow-Methods" "PUT, OPTIONS, POST, GET"
     addHeader "Access-Control-Allow-Credentials" "true"

@@ -8,6 +8,7 @@ module Comentarios where
 
 import Foundation
 import Yesod
+import Data.Text
 import qualified Database.Esqueleto as E
 import Database.Esqueleto ((^.))
 
@@ -62,8 +63,15 @@ postComentarioR = do
     comentarioId <- runDB $ insert comentario
     return $ object ["comentario" .= comentarioId]
 
-optionsComentariosR :: Handler RepPlain
-optionsPostsR = do
+optionsComentariosR :: PostId -> Handler RepPlain
+optionsComentariosR postid = do
+    addHeader "Access-Control-Allow-Origin" "*"
+    addHeader "Access-Control-Allow-Methods" "PUT, OPTIONS, POST, GET"
+    addHeader "Access-Control-Allow-Credentials" "true"
+    return $ RepPlain $ toContent ("" :: Text)
+
+optionsComentarioR :: Handler RepPlain
+optionsComentarioR = do
     addHeader "Access-Control-Allow-Origin" "*"
     addHeader "Access-Control-Allow-Methods" "PUT, OPTIONS, POST, GET"
     addHeader "Access-Control-Allow-Credentials" "true"
