@@ -61,11 +61,12 @@ const Post = () => {
     } else if (editor) {
       setEditMode(true)
       setIsLoading(false)
+      setDeny(false)
     } else {
       setDeny(true)
       setIsLoading(false)
     }
-  }, [id])
+  }, [id, editor])
 
   if (isLoading) {
     return <div></div>

@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { LoginContext } from '../Componentes/LoginContext'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 
@@ -42,6 +43,7 @@ const EditPost = ({ post }) => {
   const [conteudo, setConteudo] = useState(post.conteudo || "")
   const [titulo, setTiulo] = useState(post.titulo || "")
   const history = useHistory()
+  const { editor } = useContext(LoginContext)
 
   const handleSubmit = async(ev) => {
     ev.preventDefault()
@@ -51,9 +53,8 @@ const EditPost = ({ post }) => {
         body: JSON.stringify({
           conteudo,
           titulo,
-          editorId: 1,
+          editorId: editor,
         }),
-        credentials: "include",
       }).then(result => result.json())
     } else {
       const newId = await fetch(`${process.env.REACT_APP_BACK}/post`, {
@@ -61,9 +62,8 @@ const EditPost = ({ post }) => {
         body: JSON.stringify({
           conteudo,
           titulo,
-          editorId: 1,
+          editorId: editor,
         }),
-        credentials: "include",
       }).then(result => result.json())
       history.push(`/post/${newId.id}`)
     }
