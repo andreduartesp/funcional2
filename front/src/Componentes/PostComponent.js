@@ -32,7 +32,7 @@ const PostComponent = ({ titulo, editor, conteudo, lista }) => {
   return (
     <Container>
       <Titulo>{titulo}</Titulo>
-      <Autor>Por: {editor.nome}</Autor>
+      <Autor>Por: {editor?.nome}</Autor>
       <div>
         <Conteudo dangerouslySetInnerHTML={{__html: replaceNewLine(conteudo)}} />
       </div>
