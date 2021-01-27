@@ -80,13 +80,13 @@ const LoginEditor = () => {
           <Titulo>
             Email:
           </Titulo>
-          <InputTitulo type='text' value={email} onChange={(ev) => setEmail(ev.currentTarget.value)} />
+          <InputTitulo type='text' value={email} onChange={(ev) => setEmail(ev.currentTarget.value)} required/>
         </InputWrapper>
         <InputWrapper>
           <Titulo>
             Senha:
           </Titulo>
-          <InputTitulo type='password' value={senha} onChange={(ev) => setSenha(ev.currentTarget.value)} />
+          <InputTitulo type='password' value={senha} onChange={(ev) => setSenha(ev.currentTarget.value)} required/>
         </InputWrapper>
         <SubmitWrapper>
           <InputSubmit type='submit' value='Entrar' />

@@ -69,25 +69,19 @@ const UserForm = ({ usuario }) => {
           <Titulo>
             Nome:
           </Titulo>
-          <InputTitulo type='text' value={nome} onChange={(ev) => setNome(ev.currentTarget.value)} />
+          <InputTitulo type='text' value={nome} onChange={(ev) => setNome(ev.currentTarget.value)} required/>
         </InputWrapper>
         <InputWrapper>
           <Titulo>
             Email:
           </Titulo>
-          <InputTitulo type='text' value={email} onChange={(ev) => setEmail(ev.currentTarget.value)} />
+          <InputTitulo type='text' value={email} onChange={(ev) => setEmail(ev.currentTarget.value)} required/>
         </InputWrapper>
         <InputWrapper>
           <Titulo>
             Senha:
           </Titulo>
-          <InputTitulo type='password' value={senha} onChange={(ev) => setSenha(ev.currentTarget.value)} />
-        </InputWrapper>
-        <InputWrapper>
-          <Titulo>
-            Confirmação da Senha:
-          </Titulo>
-          <InputTitulo type='password' value={confirmacao} onChange={(ev) => setConfirmacao(ev.currentTarget.value)} />
+          <InputTitulo type='text' value={senha} onChange={(ev) => setSenha(ev.currentTarget.value)} required/>
         </InputWrapper>
         <SubmitWrapper>
           <InputSubmit type='submit' value='Cadastrar' />

@@ -76,13 +76,13 @@ const EditPost = ({ post }) => {
           <Titulo>
             Titulo:
           </Titulo>
-          <InputTitulo type='text' value={titulo} onChange={(ev) => setTiulo(ev.currentTarget.value)} />
+          <InputTitulo type='text' value={titulo} onChange={(ev) => setTiulo(ev.currentTarget.value)} required/>
         </InputWrapper>
         <InputWrapper>
           <Titulo>
             Conteudo:
           </Titulo>
-          <InputConteudo type='text' value={conteudo} onChange={(ev) => setConteudo(ev.currentTarget.value)} />
+          <InputConteudo type='text' value={conteudo} onChange={(ev) => setConteudo(ev.currentTarget.value)} required/>
         </InputWrapper>
         <SubmitWrapper>
           <InputSubmit type='submit' value='Enviar Post' />
