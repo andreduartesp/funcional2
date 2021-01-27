@@ -64,7 +64,7 @@ const LoginEditor = () => {
         console.log(usuario)
         if (usuario.results[0]){
           setEditor(usuario.results[0])
-          history.push(`/`)
+          history.push('/post')
         } else {
           setErroLogin(true)
         }
