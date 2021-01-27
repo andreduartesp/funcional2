@@ -47,6 +47,7 @@ const UserForm = () => {
     ev.preventDefault()
     fetch(`${process.env.REACT_APP_BACK}/login/${email}/${md5(senha)}`, {
       method: 'POST',
+      mode: 'cors',
     })
       .then(result => result.json())
       .then((usuario) => {

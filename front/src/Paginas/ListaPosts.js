@@ -22,7 +22,7 @@ const ListaPosts = () => {
 
   useEffect(() => {
     console.log('start fetch')
-    fetch(`${process.env.REACT_APP_BACK}/posts`, {})
+    fetch(`${process.env.REACT_APP_BACK}/posts`, {mode: 'cors',})
       .then(result => result.json())
       .then(resultJson => setPosts(resultJson.results))
   }, [])

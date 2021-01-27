@@ -40,6 +40,7 @@ const EditPost = ({ editor }) => {
     if (editor.id) {
       fetch(`${process.env.REACT_APP_BACK}/editor/${editor.id}`, {
         method: 'PUT',
+        mode: 'cors',
         body: JSON.stringify({
           nome,
           email,
@@ -49,6 +50,7 @@ const EditPost = ({ editor }) => {
     } else {
       const newId = await fetch(`${process.env.REACT_APP_BACK}/editor`, {
         method: 'POST',
+        mode: 'cors',
         body: JSON.stringify({
           nome,
           email,

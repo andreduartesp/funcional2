@@ -50,6 +50,7 @@ const EditPost = ({ post }) => {
     if (post.id) {
       fetch(`${process.env.REACT_APP_BACK}/post/${post.id}`, {
         method: 'PUT',
+        mode: 'cors',
         body: JSON.stringify({
           conteudo,
           titulo,
@@ -59,6 +60,7 @@ const EditPost = ({ post }) => {
     } else {
       const newId = await fetch(`${process.env.REACT_APP_BACK}/post`, {
         method: 'POST',
+        mode: 'cors',
         body: JSON.stringify({
           conteudo,
           titulo,

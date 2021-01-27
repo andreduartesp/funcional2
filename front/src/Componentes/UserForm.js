@@ -41,16 +41,17 @@ const UserForm = ({ usuario }) => {
     if (usuario.id) {
       fetch(`${process.env.REACT_APP_BACK}/atualizar/${usuario.id}`, {
         method: 'POST',
+        mode: 'cors',
         body: JSON.stringify({
           nome,
           usuario: email,
           senha: senha === '"******' ? senha : md5(senha),
         }),
-        credentials: "include",
       }).then(result => result.json())
     } else {
       const newId = await fetch(`${process.env.REACT_APP_BACK}/cadastrar`, {
         method: 'POST',
+        mode: 'cors',
         body: JSON.stringify({
           nome,
           usuario: email,

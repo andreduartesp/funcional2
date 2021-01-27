@@ -58,6 +58,7 @@ const LoginEditor = () => {
     ev.preventDefault()
     fetch(`${process.env.REACT_APP_BACK}/editorLogin/${email}/${md5(senha)}`, {
       method: 'POST',
+      mode: 'cors',
     })
       .then(result => result.json())
       .then((usuario) => {

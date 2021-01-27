@@ -49,13 +49,13 @@ const Post = () => {
 
   useEffect(() => {
     if (id) {
-      fetch(`${process.env.REACT_APP_BACK}/post/${id}`, {credentials: "include"})
+      fetch(`${process.env.REACT_APP_BACK}/post/${id}`, {mode: 'cors',})
         .then(response => response.json())
         .then(post => {
           setPost({ ...post, id })
           setIsLoading(false)
         })
-      fetch(`${process.env.REACT_APP_BACK}/comentarios/${id}`, {credentials: "include"})
+      fetch(`${process.env.REACT_APP_BACK}/comentarios/${id}`, {mode: 'cors',})
         .then(response => response.json())
         .then(comentarios => setComentarios(comentarios.results))
     } else if (editor) {

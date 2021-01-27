@@ -58,12 +58,12 @@ const ReadPost = ({ post, comentarios }) => {
   const addComentario = async() => {
     fetch(`${process.env.REACT_APP_BACK}/comentario`, {
       method: 'post',
+      mode: 'cors',
       body: JSON.stringify({
         conteudo: comentario,
         usuarioId: parseInt(usuario),
         postId: parseInt(post.id)
       }),
-      credentials: "include",
     })
       .then(result => result.json())
       .then(() => {

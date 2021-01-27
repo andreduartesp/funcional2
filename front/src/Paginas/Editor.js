@@ -16,7 +16,7 @@ const Post = () => {
 
   useEffect(async() => {
     if (id) {
-      const editor = await fetch(`${process.env.REACT_APP_BACK}/editor/${id}`, {credentials: "include"}).then(response => response.json())
+      const editor = await fetch(`${process.env.REACT_APP_BACK}/editor/${id}`, {mode: 'cors'}).then(response => response.json())
       setEditor({ ...editor, id })
     }
     setIsLoading(false)
