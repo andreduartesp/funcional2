@@ -3,6 +3,7 @@ import { LoginContext } from '../Componentes/LoginContext'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 import md5 from 'md5'
+import { Link } from 'react-router-dom'
 
 const InputWrapper = styled.div``
 
@@ -29,11 +30,21 @@ const SubmitWrapper = styled.div`
 `
 
 const ErroContainer = styled.div`
-
 `
 
 const ErroSpan = styled.span`
+`
 
+
+const LinkButton = styled(Link)`
+  border: none;
+  background-color: red;
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 10px;
+  text-decoration: none;
+  margin-left: 10px;
 `
 
 const LoginEditor = () => {
@@ -79,6 +90,7 @@ const LoginEditor = () => {
         </InputWrapper>
         <SubmitWrapper>
           <InputSubmit type='submit' value='Entrar' />
+          <LinkButton to='/editor/add' >Adicionar Editor</LinkButton>
         </SubmitWrapper>
       </form>
       {erroLogin && (

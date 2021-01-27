@@ -56,7 +56,7 @@ const EditPost = ({ editor }) => {
         }),
       }).then(result => result.json())
       setEditor(newId.id)
-      history.push(`/`)
+      history.push('/post')
     }
   }
 

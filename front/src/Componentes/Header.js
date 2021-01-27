@@ -43,11 +43,16 @@ const TitleLink = styled(Link)`
 `
 
 const Header = () => {
-  const { usuario, setUsuario } = useContext(LoginContext)
+  const { usuario, setUsuario, editor, setEditor } = useContext(LoginContext)
 
   const logout = async() => {
     setUsuario(null)
   }
+
+  const logoutEditor = async() => {
+    setEditor(null)
+  }
+
   return (
     <>
       <Container>
@@ -62,6 +67,11 @@ const Header = () => {
               <StyledLink to={'/login'}>ENTRAR</StyledLink>
               <StyledLink to={'/cadastrar'}>CADASTRAR</StyledLink>
             </>
+          )}
+          {!editor ? (
+            <StyledLink to={'/editor'}>ENTRAR EDITOR</StyledLink>
+          ): (
+            <StyledLink onClick={logoutEditor}>SAIR EDITOR</StyledLink>
           )}
         </BotoesContainer>
       </Container>
