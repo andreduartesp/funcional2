@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { LoginContext } from '../Componentes/LoginContext'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
+import md5 from 'md5'
 
 const InputWrapper = styled.div``
 
@@ -28,7 +30,10 @@ const SubmitWrapper = styled.div`
 
 const EditPost = ({ editor }) => {
   const [nome, setNome] = useState(editor.nome || "")
+  const [email, setEmail] = useState(editor.nome || "")
+  const [senha, setSenha] = useState(editor.nome || "")
   const history = useHistory()
+  const { setEditor } = useContext(LoginContext)
 
   const handleSubmit = async(ev) => {
     ev.preventDefault()
@@ -37,18 +42,21 @@ const EditPost = ({ editor }) => {
         method: 'PUT',
         body: JSON.stringify({
           nome,
+          email,
+          senha: md5(senha),
         }),
-        credentials: "include",
       }).then(result => result.json())
     } else {
       const newId = await fetch(`${process.env.REACT_APP_BACK}/editor`, {
         method: 'POST',
         body: JSON.stringify({
           nome,
+          email,
+          senha: md5(senha),
         }),
-        credentials: "include",
       }).then(result => result.json())
-      history.push(`/editor/${newId.id}`)
+      setEditor(newId.id)
+      history.push('/post')
     }
   }
 
@@ -59,7 +67,19 @@ const EditPost = ({ editor }) => {
           <Titulo>
             Nome:
           </Titulo>
-          <InputTitulo type='text' value={nome} onChange={(ev) => setNome(ev.currentTarget.value)} />
+          <InputTitulo type='text' value={nome} onChange={(ev) => setNome(ev.currentTarget.value)} required/>
+        </InputWrapper>
+        <InputWrapper>
+          <Titulo>
+            Email:
+          </Titulo>
+          <InputTitulo type='text' value={email} onChange={(ev) => setEmail(ev.currentTarget.value)} required/>
+        </InputWrapper>
+        <InputWrapper>
+          <Titulo>
+            Senha:
+          </Titulo>
+          <InputTitulo type='text' value={senha} onChange={(ev) => setSenha(ev.currentTarget.value)} required/>
         </InputWrapper>
         <SubmitWrapper>
           <InputSubmit type='submit' value='Enviar Post' />

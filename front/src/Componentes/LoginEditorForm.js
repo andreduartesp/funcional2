@@ -3,6 +3,7 @@ import { LoginContext } from '../Componentes/LoginContext'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 import md5 from 'md5'
+import { Link } from 'react-router-dom'
 
 const InputWrapper = styled.div``
 
@@ -29,11 +30,21 @@ const SubmitWrapper = styled.div`
 `
 
 const ErroContainer = styled.div`
-
 `
 
 const ErroSpan = styled.span`
+`
 
+
+const LinkButton = styled(Link)`
+  border: none;
+  background-color: red;
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 10px;
+  text-decoration: none;
+  margin-left: 10px;
 `
 
 const LoginEditor = () => {
@@ -53,7 +64,7 @@ const LoginEditor = () => {
         console.log(usuario)
         if (usuario.results[0]){
           setEditor(usuario.results[0])
-          history.push(`/`)
+          history.push('/post')
         } else {
           setErroLogin(true)
         }
@@ -69,16 +80,17 @@ const LoginEditor = () => {
           <Titulo>
             Email:
           </Titulo>
-          <InputTitulo type='text' value={email} onChange={(ev) => setEmail(ev.currentTarget.value)} />
+          <InputTitulo type='text' value={email} onChange={(ev) => setEmail(ev.currentTarget.value)} required/>
         </InputWrapper>
         <InputWrapper>
           <Titulo>
             Senha:
           </Titulo>
-          <InputTitulo type='password' value={senha} onChange={(ev) => setSenha(ev.currentTarget.value)} />
+          <InputTitulo type='password' value={senha} onChange={(ev) => setSenha(ev.currentTarget.value)} required/>
         </InputWrapper>
         <SubmitWrapper>
           <InputSubmit type='submit' value='Entrar' />
+          <LinkButton to='/editor/add' >Adicionar Editor</LinkButton>
         </SubmitWrapper>
       </form>
       {erroLogin && (

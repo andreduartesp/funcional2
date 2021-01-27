@@ -14,7 +14,8 @@ const Autor = styled.h3`
 `
 
 const Conteudo = styled.p`
-  text-indent: 15px;
+  text-indent: 17px;
+  font-size: 19px;
 `
 
 const LerMais = styled.span`

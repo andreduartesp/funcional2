@@ -20,11 +20,11 @@ ReactDOM.render(
           <Route path="/" exact={true} component={ListaPosts} />
           <Route path="/post/:id" exact={true} component={Post} />
           <Route path="/post/" exact={true} component={Post} />
-          <Route path="/editor/:id" exact={true} component={Editor} />
           <Route path="/editor/" exact={true} component={LoginEditor} />
           <Route path="/cadastrar" exact={true} component={Usuarios} />
           <Route path="/perfil/:id" exact={true} component={Usuarios} />
           <Route path="/login" exact={true} component={Login} />
+          <Route path="/editor/add" exact={true} component={Editor} />
         </Switch>
       </BrowserRouter>
     </LoginContextProvider>
