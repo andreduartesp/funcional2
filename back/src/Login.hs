@@ -27,6 +27,7 @@ instance FromJSON Usuario where
 
 postLoginR :: Text -> Text -> Handler Value
 postLoginR usuarioReq senhaReq = do
+    addHeader "Access-Control-Allow-Origin" "*"
     addHeader "Access-Control-Allow-Credentials" "true"
     databaseUsuario <- runDB $ selectList [UsuarioUsuario ==. usuarioReq, UsuarioSenha ==. senhaReq] []
     let usuario' = Prelude.map (\x -> entityKey x) databaseUsuario
@@ -34,6 +35,7 @@ postLoginR usuarioReq senhaReq = do
 
 postCadastrarR :: Handler Value
 postCadastrarR = do
+    addHeader "Access-Control-Allow-Origin" "*"
     addHeader "Access-Control-Allow-Credentials" "true"
     usuario <- requireInsecureJsonBody :: Handler Usuario
     usuarioId <- runDB $ insert usuario
@@ -41,13 +43,43 @@ postCadastrarR = do
 
 getUsuarioR :: UsuarioId -> Handler Value
 getUsuarioR usuarioId = do
+    addHeader "Access-Control-Allow-Origin" "*"
     addHeader "Access-Control-Allow-Credentials" "true"
     usuario <- runDB $ get404 usuarioId
     returnJson usuario
 
 postAtualizarR :: UsuarioId -> Handler Value
 postAtualizarR usuarioId = do
+    addHeader "Access-Control-Allow-Origin" "*"
     addHeader "Access-Control-Allow-Credentials" "true"
     usuario <- requireInsecureJsonBody :: Handler Usuario
     runDB $ Yesod.replace usuarioId $ usuario
     returnJson usuario
+
+optionsLoginR :: Handler RepPlain
+optionsAddEditorR = do
+    addHeader "Access-Control-Allow-Origin" "*"
+    addHeader "Access-Control-Allow-Methods" "PUT, OPTIONS, POST, GET"
+    addHeader "Access-Control-Allow-Credentials" "true"
+    return $ RepPlain $ toContent ("" :: Text)
+
+optionsCadastrarR :: Handler RepPlain
+optionsAddEditorR = do
+    addHeader "Access-Control-Allow-Origin" "*"
+    addHeader "Access-Control-Allow-Methods" "PUT, OPTIONS, POST, GET"
+    addHeader "Access-Control-Allow-Credentials" "true"
+    return $ RepPlain $ toContent ("" :: Text)
+
+optionsUsuariosR :: Handler RepPlain
+optionsAddEditorR = do
+    addHeader "Access-Control-Allow-Origin" "*"
+    addHeader "Access-Control-Allow-Methods" "PUT, OPTIONS, POST, GET"
+    addHeader "Access-Control-Allow-Credentials" "true"
+    return $ RepPlain $ toContent ("" :: Text)
+
+optionsAtualizarR :: Handler RepPlain
+optionsAddEditorR = do
+    addHeader "Access-Control-Allow-Origin" "*"
+    addHeader "Access-Control-Allow-Methods" "PUT, OPTIONS, POST, GET"
+    addHeader "Access-Control-Allow-Credentials" "true"
+    return $ RepPlain $ toContent ("" :: Text)

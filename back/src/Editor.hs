@@ -22,6 +22,7 @@ instance FromJSON Editor where
 
 postEditorLoginR :: Text -> Text -> Handler Value
 postEditorLoginR editorReq senhaReq = do
+    addHeader "Access-Control-Allow-Origin" "*"
     addHeader "Access-Control-Allow-Credentials" "true"
     databaseEditor <- runDB $ selectList [EditorEmail ==. editorReq, EditorSenha ==. senhaReq] []
     let editor' = Prelude.map (\x -> entityKey x) databaseEditor
@@ -29,12 +30,14 @@ postEditorLoginR editorReq senhaReq = do
 
 getEditorR :: EditorId -> Handler Value
 getEditorR editorId = do
+    addHeader "Access-Control-Allow-Origin" "*"
     addHeader "Access-Control-Allow-Credentials" "true"
     editor <- runDB $ get404 editorId
     returnJson editor
 
 postAddEditorR :: Handler Value
 postAddEditorR = do
+    addHeader "Access-Control-Allow-Origin" "*"
     addHeader "Access-Control-Allow-Credentials" "true"
     editor <- requireInsecureJsonBody :: Handler Editor
     editorId <- runDB $ insert editor
@@ -42,6 +45,7 @@ postAddEditorR = do
 
 putEditorR :: EditorId -> Handler Value
 putEditorR editorId = do
+    addHeader "Access-Control-Allow-Origin" "*"
     addHeader "Access-Control-Allow-Credentials" "true"
     editor <- requireInsecureJsonBody :: Handler Editor
     runDB $ Yesod.replace editorId $ editor
@@ -49,6 +53,7 @@ putEditorR editorId = do
 
 getEditoresR :: Handler Value
 getEditoresR = do
+    addHeader "Access-Control-Allow-Origin" "*"
     addHeader "Access-Control-Allow-Credentials" "true"
     runDB $ selectList [] [Asc EditorId]
     return $ object ["teste" .= True]
@@ -62,6 +67,13 @@ optionsEditorR editorId = do
     return $ RepPlain $ toContent ("" :: Text)
 
 optionsAddEditorR :: Handler RepPlain
+optionsAddEditorR = do
+    addHeader "Access-Control-Allow-Origin" "*"
+    addHeader "Access-Control-Allow-Methods" "PUT, OPTIONS, POST, GET"
+    addHeader "Access-Control-Allow-Credentials" "true"
+    return $ RepPlain $ toContent ("" :: Text)
+
+optionsEditoresR :: Handler RepPlain
 optionsAddEditorR = do
     addHeader "Access-Control-Allow-Origin" "*"
     addHeader "Access-Control-Allow-Methods" "PUT, OPTIONS, POST, GET"

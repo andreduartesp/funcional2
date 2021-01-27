@@ -46,26 +46,29 @@ instance FromJSON Post where
 
 getPostR :: PostId -> Handler Value
 getPostR postId = do
+    addHeader "Access-Control-Allow-Origin" "*"
     addHeader "Access-Control-Allow-Credentials" "true"
     post <- runDB $ get404 postId
     returnJson post
 
 postAddPostR :: Handler Value
 postAddPostR = do
+    addHeader "Access-Control-Allow-Origin" "*"
     post <- requireInsecureJsonBody :: Handler Post
     postId <- runDB $ insert post
     return $ object ["id" .= postId]
 
 putPostR :: PostId -> Handler Value
 putPostR postId = do
+    addHeader "Access-Control-Allow-Origin" "*"
     post <- requireInsecureJsonBody :: Handler Post
     runDB $ Yesod.replace postId $ post
     returnJson post
 
 getPostsR :: Handler Value
 getPostsR = do
-    addHeader "Access-Control-Allow-Credentials" "true"
     addHeader "Access-Control-Allow-Origin" "*"
+    addHeader "Access-Control-Allow-Credentials" "true"
     posts <- runDB $ selectList [] [Asc PostTitulo]
     allPosts <- runDB
          $ E.select

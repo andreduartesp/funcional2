@@ -43,6 +43,7 @@ instance FromJSON Comentario where
 getComentariosR :: PostId -> Handler Value
 getComentariosR postId = do
     addHeader "Access-Control-Allow-Credentials" "true"
+    addHeader "Access-Control-Allow-Origin" "*"
     allComentarios <- runDB
          $ E.select
          $ E.from $ \(comentario `E.InnerJoin` usuario) -> do
@@ -56,6 +57,14 @@ getComentariosR postId = do
 postComentarioR ::  Handler Value
 postComentarioR = do
     addHeader "Access-Control-Allow-Credentials" "true"
+    addHeader "Access-Control-Allow-Origin" "*"
     comentario <- requireInsecureJsonBody :: Handler Comentario
     comentarioId <- runDB $ insert comentario
     return $ object ["comentario" .= comentarioId]
+
+optionsComentariosR :: Handler RepPlain
+optionsPostsR = do
+    addHeader "Access-Control-Allow-Origin" "*"
+    addHeader "Access-Control-Allow-Methods" "PUT, OPTIONS, POST, GET"
+    addHeader "Access-Control-Allow-Credentials" "true"
+    return $ RepPlain $ toContent ("" :: Text)

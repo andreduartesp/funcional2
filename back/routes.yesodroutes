@@ -2,12 +2,12 @@
 /post/#PostId PostR GET PUT OPTIONS
 /post AddPostR POST OPTIONS
 /posts PostsR GET OPTIONS
-/comentarios/#PostId ComentariosR GET
-/comentario ComentarioR POST
-/login/#Text/#Text LoginR POST
-/cadastrar CadastrarR POST
-/atualizar/#UsuarioId AtualizarR POST
-/usuario/#UsuarioId UsuarioR GET
+/comentarios/#PostId ComentariosR GET OPTIONS
+/comentario ComentarioR POST OPTIONS
+/login/#Text/#Text LoginR POST OPTIONS
+/cadastrar CadastrarR POST OPTIONS
+/atualizar/#UsuarioId AtualizarR POST OPTIONS
+/usuario/#UsuarioId UsuarioR GET OPTIONS
 /editor/#EditorId EditorR GET PUT OPTIONS
-/editorLogin/#Text/#Text EditorLoginR POST
+/editorLogin/#Text/#Text EditorLoginR POST OPTIONS
 /editor AddEditorR POST OPTIONS
