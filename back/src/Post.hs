@@ -65,6 +65,7 @@ putPostR postId = do
 getPostsR :: Handler Value
 getPostsR = do
     addHeader "Access-Control-Allow-Credentials" "true"
+    addHeader "Access-Control-Allow-Origin" "*"
     posts <- runDB $ selectList [] [Asc PostTitulo]
     allPosts <- runDB
          $ E.select
@@ -85,6 +86,13 @@ optionsPostR postId = do
 
 optionsAddPostR :: Handler RepPlain
 optionsAddPostR = do
+    addHeader "Access-Control-Allow-Origin" "*"
+    addHeader "Access-Control-Allow-Methods" "PUT, OPTIONS, POST, GET"
+    addHeader "Access-Control-Allow-Credentials" "true"
+    return $ RepPlain $ toContent ("" :: Text)
+
+optionsPostsR :: Handler RepPlain
+optionsPostsR = do
     addHeader "Access-Control-Allow-Origin" "*"
     addHeader "Access-Control-Allow-Methods" "PUT, OPTIONS, POST, GET"
     addHeader "Access-Control-Allow-Credentials" "true"
