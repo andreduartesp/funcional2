@@ -24,14 +24,15 @@ const LerMais = styled.span`
 
 const replaceNewLine = (texto) => `<p>${texto.split("\n").join("</p><p>")}</p>`
 
-const PostComponent = ({ titulo, autor, conteudo, lista }) => {
+const PostComponent = ({ titulo, editor, conteudo, lista }) => {
   if (lista) {
     conteudo = `${conteudo.substring(0, 400)} …`
   }
+
   return (
     <Container>
       <Titulo>{titulo}</Titulo>
-      <Autor>{autor}</Autor>
+      <Autor>Por: {editor.nome}</Autor>
       <div>
         <Conteudo dangerouslySetInnerHTML={{__html: replaceNewLine(conteudo)}} />
       </div>
